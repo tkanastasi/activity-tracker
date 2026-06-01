@@ -130,6 +130,12 @@ button {
     border-radius: 10px;
     padding: 12px 16px;
     font-size: 14px;
+    transition:
+    transform 0.15s ease,
+    opacity 0.15s ease;
+}
+button:active {
+    transform: scale(0.97);
 }
 
 .primary {
@@ -138,8 +144,8 @@ button {
 }
 
 .secondary {
-    background: var(--accent-light);
-    color: var(--accent);
+    background: #fee2e2;
+    color: #dc2626;
 }
 
 .streak {
@@ -154,6 +160,7 @@ button {
 
 <header>
     <h1>🧘 30 Days Activity Challenge</h1>
+
     <div class="subtitle">
         Отмечаю активность и сохраняю заметки каждый день
     </div>
@@ -167,7 +174,7 @@ button {
     </div>
 
     <div class="streak" id="streakText">
-        🔥 Стрик: 0 дней
+        🔥 Выполнено: 0 дней
     </div>
 </div>
 
@@ -187,6 +194,35 @@ button {
 
 <script>
 const STORAGE_KEY = "pilatesChallenge30";
+const CHALLENGE_START = "2026-06-01";
+
+function getAvailableDays() {
+    const armeniaNow = new Date(
+        new Date().toLocaleString(
+            "en-US",
+            {
+                timeZone: "Asia/Yerevan"
+            }
+        )
+    );
+
+    const startDate =
+        new Date(CHALLENGE_START);
+
+    const diffDays =
+        Math.floor(
+            (
+                armeniaNow -
+                startDate
+            ) /
+            (1000 * 60 * 60 * 24)
+        ) + 1;
+
+    return Math.min(
+        Math.max(diffDays, 1),
+        30
+    );
+}
 
 let data = JSON.parse(
     localStorage.getItem(STORAGE_KEY)
@@ -211,6 +247,7 @@ function save() {
 }
 
 function updateStats() {
+
     const completed = data.filter(
         d => d.completed
     ).length;
@@ -242,7 +279,12 @@ function render() {
 
     grid.innerHTML = "";
 
-    data.forEach(item => {
+    const availableDays =
+        getAvailableDays();
+
+    data
+        .slice(0, availableDays)
+        .forEach(item => {
         const card =
             document.createElement("div");
 
@@ -294,10 +336,13 @@ function render() {
 
                 item.completedAt =
                     checkbox.checked
-                    ? new Date()
-                        .toLocaleDateString(
-                            "ru-RU"
-                        )
+                    ? new Date().toLocaleString(
+                        "ru-RU",
+                        {
+                            dateStyle: "short",
+                            timeStyle: "short"
+                        }
+                    )
                     : "";
 
                 save();
@@ -357,11 +402,13 @@ function exportData() {
 }
 
 function resetChallenge() {
+
     if (
         confirm(
             "Удалить весь прогресс?"
         )
     ) {
+
         localStorage.removeItem(
             STORAGE_KEY
         );
