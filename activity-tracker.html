@@ -99,11 +99,13 @@ h1 {
     accent-color: var(--success);
     width: 20px;
     height: 20px;
+
+    pointer-events: none;
 }
 
 textarea {
     width: 100%;
-    min-height: 80px;
+    min-height: 120px;
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 10px;
@@ -162,7 +164,7 @@ button:active {
     <h1>🧘 30 Days Activity Challenge</h1>
 
     <div class="subtitle">
-        Отмечаю активность и сохраняю заметки каждый день
+        Забочусь о себе в своём темпе
     </div>
 </header>
 
@@ -232,7 +234,10 @@ function createDefaultData() {
     return Array.from({ length: 30 }, (_, i) => ({
         day: i + 1,
         completed: false,
-        note: "",
+        
+        activity: "",
+        nutrition: "",
+
         completedAt: ""
     }));
 }
@@ -296,17 +301,25 @@ function render() {
                 <div class="day-title">
                     День ${item.day}
                 </div>
-
+            
                 <input
                     type="checkbox"
                     class="completed"
                     ${item.completed ? "checked" : ""}
                 >
             </div>
-
+            
+            <label>Активность</label>
             <textarea
-                placeholder="Что сегодня делала?"
-            >${item.note}</textarea>
+                class="activity"
+                placeholder="Что делала сегодня?"
+            >${item.activity || ""}</textarea>
+            
+            <label>Питание</label>
+            <textarea
+                class="nutrition"
+                placeholder="Что хочется отметить?"
+            >${item.nutrition || ""}</textarea>
 
             <div class="date">
                 ${
@@ -323,19 +336,29 @@ function render() {
                 "input"
             );
 
-        const textarea =
+        const activity =
             card.querySelector(
-                "textarea"
+                ".activity"
             );
 
-        checkbox.addEventListener(
-            "change",
-            () => {
-                item.completed =
-                    checkbox.checked;
+        const nutrition =
+            card.querySelector(
+                ".nutrition"
+            );
 
+        activity.addEventListener(
+            "input",
+            () => {
+            
+                item.activity =
+                    activity.value;
+            
+                item.completed =
+                    item.activity
+                        .trim() !== "";
+            
                 item.completedAt =
-                    checkbox.checked
+                    item.completed
                     ? new Date().toLocaleString(
                         "ru-RU",
                         {
@@ -344,18 +367,19 @@ function render() {
                         }
                     )
                     : "";
-
+                    
                 save();
                 render();
             }
         );
 
-        textarea.addEventListener(
+        nutrition.addEventListener(
             "input",
             () => {
-                item.note =
-                    textarea.value;
-
+            
+                item.nutrition =
+                    nutrition.value;
+            
                 save();
             }
         );
