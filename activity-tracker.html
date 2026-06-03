@@ -9,18 +9,18 @@
 
 <style>
 :root {
-    --bg: #e7efe2;
+    --bg: #FAF4E4;
     --card: #fbfaf7;
 
-    --accent: #6f8f72;
+    --accent: rgb(110, 184, 116);
     --accent-light: #dfe8dd;
 
-    --text: #4f3b2b;
-    --muted: #766252;
+    --text: #2f2f2f;
+    --muted: #737373;
 
     --border: #d8d2c8;
 
-    --success: #5f8a65;
+    --success: rgb(110, 184, 116);
 }
 
 * {
@@ -36,7 +36,7 @@ body {
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
@@ -45,7 +45,7 @@ header {
 }
 
 h1 {
-    color: #654631;
+    color: #2f2f2f;
     margin-bottom: 8px;
 }
 
@@ -54,11 +54,11 @@ h1 {
 }
 
 .stats {
-    background: var(--card);
+    background: #BACDED;
     border-radius: 16px;
     padding: 20px;
     margin-bottom: 24px;
-    border: 1px solid var(--border);
+    border: none;
 }
 
 .progress-bar {
@@ -72,21 +72,22 @@ h1 {
 .progress-fill {
     height: 100%;
     width: 0%;
-    background: var(--accent);
+    background: var(--success);
     transition: 0.3s;
 }
 
 .days-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+    grid-template-columns:
+        repeat(auto-fill, minmax(250px,1fr));
     gap: 16px;
 }
 
 .day-card {
-    background: var(--card);
-    border-radius: 16px;
-    padding: 16px;
-    border: 1px solid var(--border);
+    background: #ffea8b;
+    border-radius: 24px;
+    padding: 20px;
+    border: none;
 }
 
 .day-header {
@@ -100,20 +101,34 @@ h1 {
     font-weight: 600;
 }
 
-.completed {
-    accent-color: var(--success);
-    width: 20px;
-    height: 20px;
+.status-icon {
+    width: 28px;
+    height: 28px;
 
-    pointer-events: none;
+    border-radius: 10px;
+    background: var(--success);
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: bold;
+    font-size: 18px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
 }
 
 textarea {
     width: 100%;
     min-height: 120px;
-    border: 1px solid var(--border);
+    border: none;
     border-radius: 10px;
     padding: 10px;
+    margin-bottom: 12px;
     resize: vertical;
     font-family: inherit;
 
@@ -148,13 +163,11 @@ button:active {
 }
 
 .primary {
-    background: var(--accent);
-    color: white;
+    background: var(--success);
 }
 
 .secondary {
-    background: #eee6dc;
-    color: #8b5e3c;
+    background: #f6cae3;
 }
 
 .streak {
@@ -171,7 +184,7 @@ button:active {
     <h1>🧘 30 Days Activity Challenge</h1>
 
     <div class="subtitle">
-        Забочусь о себе в своём темпе
+        Учусь заботиться о себе в своём темпе 🌿
     </div>
 </header>
 
@@ -310,11 +323,9 @@ function render() {
                     День ${item.day}
                 </div>
             
-                <input
-                    type="checkbox"
-                    class="completed"
-                    ${item.completed ? "checked" : ""}
-                >
+                <div class="status-icon">
+                    ${item.completed ? "✓" : ""}
+                </div>
             </div>
             
             <label>Активность</label>
