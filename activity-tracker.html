@@ -26,7 +26,7 @@
     --bg: #FAF4E4;
     --card: #fbfaf7;
 
-    --accent: rgb(110, 184, 116);
+    --accent: #6eb874;
     --accent-light: #dfe8dd;
 
     --text: #2f2f2f;
@@ -34,7 +34,7 @@
 
     --border: #d8d2c8;
 
-    --success: rgb(110, 184, 116);
+    --success: #6eb874;
 }
 
 * {
@@ -55,15 +55,26 @@ body {
 }
 
 header {
-    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
     margin-bottom: 24px;
 }
 
 h1 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     font-size: 35px;
     font-weight: 700;
     color: #2f2f2f;
     margin-bottom: 8px;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    vertical-align: middle;
 }
 
 .subtitle {
@@ -119,29 +130,28 @@ h1 {
 }
 
 .status-icon {
-    width: 28px;
-    height: 28px;
-
-    border-radius: 10px;
-    background: var(--success);
-    color: white;
+    width: 35px;
+    height: 35px;
 
     display: flex;
     align-items: center;
     justify-content: center;
+}
 
-    font-weight: bold;
-    font-size: 18px;
+.check-icon {
+    width: 35px;
+    height: 35px;
 }
 
 label {
     display: block;
     margin-bottom: 8px;
+    font-size: 14px;
 }
 
 textarea {
     width: 100%;
-    min-height: 120px;
+    min-height: 100px;
     border: none;
     border-radius: 10px;
     padding: 10px;
@@ -198,11 +208,15 @@ button:active {
 <div class="container">
 
 <header>
-    <h1>🧘 30 Days Activity Challenge</h1>
+    <h1>
+        <img
+            src="./assets/yoga.svg"
+            alt=""
+            class="logo-icon"
+        />
 
-    <div class="subtitle">
-        Учусь заботиться о себе в своём темпе 🌿
-    </div>
+    30 Days Activity Challenge
+</h1>
 </header>
 
 <div class="stats">
@@ -341,7 +355,9 @@ function render() {
                 </div>
             
                 <div class="status-icon">
-                    ${item.completed ? "✓" : ""}
+                    ${item.completed
+                        ? '<img src="./assets/check-v2.svg" class="check-icon">'
+                        : ''}
                 </div>
             </div>
             
@@ -366,11 +382,6 @@ function render() {
                 }
             </div>
         `;
-
-        const checkbox =
-            card.querySelector(
-                "input"
-            );
 
         const activity =
             card.querySelector(
@@ -403,9 +414,6 @@ function render() {
                         }
                     )
                     : "";
-                    
-                checkbox.checked =
-                    item.completed;
                     
                 save();
             }
