@@ -1,7 +1,42 @@
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
-<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="SVGRepo_bgCarrier" stroke-width="0"/>
-<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-<g id="SVGRepo_iconCarrier"> <path d="M12 21C16.4183 21 20 17.6439 20 13.504C20 9.76257 17.9654 6.83811 16.562 5.44436C16.3017 5.18584 15.8683 5.30006 15.7212 5.63288C14.9742 7.3229 13.4178 9.75607 11.4286 9.75607C10.1975 9.92086 8.31688 8.86844 9.83483 3.64868C9.97151 3.17868 9.46972 2.80113 9.08645 3.11539C6.9046 4.90436 4 8.51143 4 13.504C4 17.6439 7.58172 21 12 21Z" fill="#FFBB5C"/> </g>
-</svg>
+
+
+<svg width="800px" height="800px" viewBox="-5 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
+
+<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+
+<g id="SVGRepo_iconCarrier">
+
+<title>flame</title>
+<desc>Created with Sketch.</desc>
+
+<defs></defs>
+
+<g id="Vivid.JS" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+
+<g id="Vivid-Icons" transform="translate(-829.000000, -644.000000)">
+
+<g id="Icons" transform="translate(37.000000, 169.000000)">
+
+<g id="flame" transform="translate(780.000000, 468.000000)">
+
+<g transform="translate(11.000000, 7.000000)" id="Shape">
+
+<!-- Внешний огонь -->
+
+<path d="M24.555,25.1 C23.0016934,30.9449043 17.3352812,34.7152461 11.3440153,33.8903819 C5.35274935,33.0655178 0.916028269,27.9041991 1,21.857 C0.976535234,20.8605193 1.14107319,19.868542 1.485,18.933 C2.643,11.595 9.785,11.063 5.8,7.10542736e-15 C5.8,7.10542736e-15 12.45,1.727 13.8,12.143 C13.8,12.143 18.719,11.98 15.4,4.857 C20.6710017,8.24748606 24.1823552,13.7862803 25,20 C25.0272045,21.7107711 24.8780839,23.4197933 24.555,25.1 Z" fill="#FF841F"></path>
+
+<!-- Внутренний огонь -->
+
+<path d="M20,26.5 C19.9377343,30.5021395 16.7437199,33.7501147 12.743185,33.8794141 C8.74265019,34.0087135 5.34556836,30.9737661 5.025,26.984 L5,27 C5,27 4.925,23.728 5,23 C5.684,16.389 7.6,13.437 10,9 C10.067,6.361 8.885,16.273 15,19 C18.0165975,20.2750836 19.9832296,23.2250317 20,26.5 Z" fill="#ffea8b" transform="translate(2.2 3.5) scale(0.75)"></path>
+
+</g>
+</g>
+</g>
+</g>
+</g>
+
+</g>
+
+</svg>

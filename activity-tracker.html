@@ -23,18 +23,20 @@
     >
 <style>
 :root {
-    --bg: #FAF4E4;
-    --card: #fbfaf7;
+    --cream: #FAF4E4;        /* фон страницы */
 
-    --accent: #6eb874;
-    --accent-light: #dfe8dd;
+    --charcoal: #2F2F2F;     /* основной текст */
+    --stone: #737373;        /* вторичный текст */
 
-    --text: #2f2f2f;
-    --muted: #737373;
+    --butter-yellow: #FFEA8B; /* карточки */
+    --pale-blue: #BACDED;     /* блок прогресса */
 
-    --border: #d8d2c8;
+    --sage-green: #6EB874;    /* галочки, прогресс, кнопка */
+    --soft-pink: #F6CAE3;     /* сброс */
 
-    --success: #6eb874;
+    --cloud-gray: #E5E7EB;    /* фон полосы прогресса */
+
+    --white: #FFFFFF;         /* textarea */
 }
 
 * {
@@ -44,8 +46,8 @@
 body {
     margin: 0;
     padding: 24px;
-    background: var(--bg);
-    color: var(--text);
+    background: var(--cream);
+    color: var(--charcoal);
     font-family: "Outfit", sans-serif;
 }
 
@@ -67,7 +69,6 @@ h1 {
     gap: 12px;
     font-size: 35px;
     font-weight: 700;
-    color: #2f2f2f;
     margin-bottom: 8px;
 }
 
@@ -78,11 +79,20 @@ h1 {
 }
 
 .subtitle {
-    color: var(--muted);
+    color: var(--stone);
+}
+
+.fire-icon {
+    width: 18px;
+    height: 18px;
+
+    vertical-align: middle;
+
+    margin-right: 6px;
 }
 
 .stats {
-    background: #BACDED;
+    background: var(--pale-blue);
     border-radius: 16px;
     padding: 15px;
     margin-bottom: 24px;
@@ -91,7 +101,7 @@ h1 {
 
 .progress-bar {
     height: 5px;
-    background: #e5e7eb;
+    background: var(--cloud-gray);
     border-radius: 999px;
     overflow: hidden;
     margin-top: 12px;
@@ -100,7 +110,7 @@ h1 {
 .progress-fill {
     height: 100%;
     width: 0%;
-    background: var(--success);
+    background: var(--sage-green);
     transition: 0.3s;
 }
 
@@ -112,7 +122,7 @@ h1 {
 }
 
 .day-card {
-    background: #ffea8b;
+    background: var(--butter-yellow);
     border-radius: 24px;
     padding: 15px;
     border: none;
@@ -159,13 +169,13 @@ textarea {
     resize: vertical;
     font-family: inherit;
 
-    background: #ffffff;
+    background: var(--white);
 }
 
 .date {
     margin-top: 8px;
     font-size: 12px;
-    color: var(--muted);
+    color: var(--stone);
 }
 
 .actions {
@@ -190,11 +200,11 @@ button:active {
 }
 
 .primary {
-    background: var(--success);
+    background: var(--sage-green);
 }
 
 .secondary {
-    background: #f6cae3;
+    background: var(--soft-pink);
 }
 
 .streak {
@@ -244,6 +254,8 @@ button:active {
 <script>
 const STORAGE_KEY = "pilatesChallenge30";
 const CHALLENGE_START = "2026-06-01";
+const FIRE_ICON =
+    '<img src="./assets/fire.svg" class="fire-icon">';
 
 function getAvailableDays() {
     const armeniaNow = new Date(
@@ -307,20 +319,15 @@ function updateStats() {
     const percent =
         (completed / 30) * 100;
 
-    let emoji = "";
-
-    if (completed >= 20) {
-        emoji = "🔥🔥🔥";
-    } else if (completed >= 10) {
-        emoji = "🔥🔥";
-    } else if (completed > 0) {
-        emoji = "🔥";
-    }
+    const fire =
+    completed > 0
+        ? FIRE_ICON
+        : "";
 
     document.getElementById(
         "progressText"
-    ).textContent =
-        `${emoji} ${completed} / 30 дней`;
+    ).innerHTML =
+        `${fire} ${completed} / 30 дней`;
 
     document.getElementById(
         "progressFill"
@@ -356,7 +363,7 @@ function render() {
             
                 <div class="status-icon">
                     ${item.completed
-                        ? '<img src="./assets/check-v2.svg" class="check-icon">'
+                        ? '<img src="./assets/check.svg" class="check-icon">'
                         : ''}
                 </div>
             </div>
