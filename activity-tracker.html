@@ -9,14 +9,18 @@
 
 <style>
 :root {
-    --bg: #f6f7fb;
-    --card: #ffffff;
-    --accent: #8b5cf6;
-    --accent-light: #ede9fe;
-    --text: #1f2937;
-    --muted: #6b7280;
-    --border: #e5e7eb;
-    --success: #22c55e;
+    --bg: #e7efe2;
+    --card: #fbfaf7;
+
+    --accent: #6f8f72;
+    --accent-light: #dfe8dd;
+
+    --text: #4f3b2b;
+    --muted: #766252;
+
+    --border: #d8d2c8;
+
+    --success: #5f8a65;
 }
 
 * {
@@ -41,6 +45,7 @@ header {
 }
 
 h1 {
+    color: #654631;
     margin-bottom: 8px;
 }
 
@@ -57,7 +62,7 @@ h1 {
 }
 
 .progress-bar {
-    height: 12px;
+    height: 5px;
     background: #e5e7eb;
     border-radius: 999px;
     overflow: hidden;
@@ -111,6 +116,8 @@ textarea {
     padding: 10px;
     resize: vertical;
     font-family: inherit;
+
+    background: #ffffff;
 }
 
 .date {
@@ -146,8 +153,8 @@ button:active {
 }
 
 .secondary {
-    background: #fee2e2;
-    color: #dc2626;
+    background: #eee6dc;
+    color: #8b5e3c;
 }
 
 .streak {
@@ -173,10 +180,6 @@ button:active {
 
     <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
-    </div>
-
-    <div class="streak" id="streakText">
-        🔥 Выполнено: 0 дней
     </div>
 </div>
 
@@ -260,20 +263,25 @@ function updateStats() {
     const percent =
         (completed / 30) * 100;
 
+    let emoji = "";
+
+    if (completed >= 20) {
+        emoji = "🔥🔥🔥";
+    } else if (completed >= 10) {
+        emoji = "🔥🔥";
+    } else if (completed > 0) {
+        emoji = "🔥";
+    }
+
     document.getElementById(
         "progressText"
     ).textContent =
-        `${completed} / 30 дней`;
+        `${emoji} ${completed} / 30 дней`;
 
     document.getElementById(
         "progressFill"
     ).style.width =
         `${percent}%`;
-
-    document.getElementById(
-        "streakText"
-    ).textContent =
-        `🔥 Выполнено: ${completed} дней`;
 }
 
 function render() {
@@ -368,8 +376,10 @@ function render() {
                     )
                     : "";
                     
+                checkbox.checked =
+                    item.completed;
+                    
                 save();
-                render();
             }
         );
 
