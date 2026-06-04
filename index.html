@@ -366,6 +366,27 @@ async function save() {
     updateStats();
 }
 
+/* Supabase */
+async function loadFromSupabase() {
+
+    const { data: result, error } =
+        await supabaseClient
+            .from("challenge_data")
+            .select("data")
+            .eq("id", 1)
+            .single();
+
+    if (error) {
+        console.error(error);
+        return;
+    }
+
+    if (result?.data?.length) {
+        data = result.data;
+    }
+}
+/* Supabase */
+
 function updateStats() {
 
     const completed = data.filter(
@@ -566,7 +587,14 @@ function resetChallenge() {
     }
 }
 
-render();
+(async () => {
+
+    await loadFromSupabase();
+
+    render();
+    updateStats();
+
+})();
 </script>
 
 </body>
