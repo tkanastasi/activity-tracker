@@ -29,6 +29,7 @@
     --stone: #737373;        /* вторичный текст */
 
     --butter-yellow: #FFEA8B; /* карточки */
+    --apricot: #FFBB5C; /* скроллбар */
     --pale-blue: #BACDED;     /* блок прогресса */
 
     --sage-green: #6EB874;    /* галочки, прогресс, кнопка */
@@ -120,6 +121,7 @@ h1 {
     overflow-x: auto;
     padding-bottom: 10px;
     scroll-snap-type: x proximity;
+    scroll-behavior: smooth;
 }
 
 .days-grid::-webkit-scrollbar {
@@ -132,7 +134,7 @@ h1 {
 }
 
 .days-grid::-webkit-scrollbar-thumb {
-    background: var(--sage-green);
+    background: var(--pale-blue);
     border-radius: 999px;
 }
 
@@ -222,6 +224,25 @@ button:active {
 
 .secondary {
     background: var(--soft-pink);
+}
+
+/* mobile */
+
+@media (max-width: 768px) {
+    .days-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .days-grid {
+        scrollbar-width: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .day-card {
+        flex: 0 0 85vw;
+    }
+
 }
 </style>
 </head>
@@ -412,6 +433,11 @@ function render() {
                 ".nutrition"
             );
 
+        const statusIcon =
+            card.querySelector(
+                ".status-icon"
+            );
+
         activity.addEventListener(
             "input",
             () => {
@@ -422,6 +448,11 @@ function render() {
                 item.completed =
                     item.activity
                         .trim() !== "";
+                
+                statusIcon.innerHTML =
+                    item.completed
+                        ? '<img src="./assets/check.svg" class="check-icon">'
+                        : '';
             
                 item.completedAt =
                     item.completed
