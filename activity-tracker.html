@@ -227,7 +227,6 @@ button:active {
 }
 
 /* mobile */
-
 @media (max-width: 768px) {
     .days-grid::-webkit-scrollbar {
         display: none;
@@ -244,6 +243,7 @@ button:active {
     }
 
 }
+/* mobile */
 </style>
 </head>
 <body>
@@ -283,10 +283,25 @@ button:active {
 </div>
 
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const STORAGE_KEY = "pilatesChallenge30";
 const CHALLENGE_START = "2026-06-01";
+
+/* Supabase */
+const SUPABASE_URL =
+    "https://cudzjponpaqjaeeqigzf.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_P5kul4vzfnQ4AV8ytgdf9A_D7bRHhck";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+/* Supabase */
+
 const FIRE_ICON =
     '<img src="./assets/fire.svg" class="fire-icon">';
 
@@ -334,11 +349,19 @@ function createDefaultData() {
     }));
 }
 
-function save() {
+async function save() {
+
     localStorage.setItem(
         STORAGE_KEY,
         JSON.stringify(data)
     );
+
+    await supabaseClient
+        .from("challenge_data")
+        .update({
+            data: data
+        })
+        .eq("id", 1);
 
     updateStats();
 }
