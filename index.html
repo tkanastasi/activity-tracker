@@ -125,7 +125,7 @@ h1 {
 }
 
 .days-grid::-webkit-scrollbar {
-    height: 8px;
+    height: 7px;
 }
 
 .days-grid::-webkit-scrollbar-track {
@@ -181,7 +181,7 @@ label {
 textarea {
     width: 100%;
     min-height: 100px;
-    border: none;
+    border: 2px solid transparent;
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 12px;
@@ -190,6 +190,23 @@ textarea {
 
     background: var(--white);
 }
+textarea:focus {
+    outline: none;
+    border-color: var(--apricot);
+}
+textarea::-webkit-scrollbar {
+    width: 8px;
+}
+textarea::-webkit-scrollbar-track {
+    margin: 4px 0;
+}
+textarea::-webkit-scrollbar-thumb {
+    background: var(--apricot);
+    border-radius: 999px;
+
+    border: 2px solid var(--white);
+}
+
 
 .date {
     margin-top: 8px;
@@ -337,6 +354,21 @@ let data = JSON.parse(
     localStorage.getItem(STORAGE_KEY)
 ) || createDefaultData();
 
+let saveTimeout;
+
+function saveDebounced() {
+
+    clearTimeout(
+        saveTimeout
+    );
+
+    saveTimeout =
+        setTimeout(
+            () => save(),
+            500
+        );
+}
+
 function createDefaultData() {
     return Array.from({ length: 30 }, (_, i) => ({
         day: i + 1,
@@ -362,8 +394,6 @@ async function save() {
             data: data
         })
         .eq("id", 1);
-
-    updateStats();
 }
 
 /* Supabase */
@@ -440,7 +470,7 @@ function render() {
             
                 <div class="status-icon">
                     ${item.completed
-                        ? '<img src="./assets/check.svg" class="check-icon">'
+                        ? '<img src="./assets/check-v2.svg" class="check-icon">'
                         : ''}
                 </div>
             </div>
@@ -497,6 +527,8 @@ function render() {
                     item.completed
                         ? '<img src="./assets/check.svg" class="check-icon">'
                         : '';
+
+                updateStats();
             
                 item.completedAt =
                     item.completed
@@ -509,7 +541,7 @@ function render() {
                     )
                     : "";
                     
-                save();
+                saveDebounced();
             }
         );
 
@@ -520,7 +552,7 @@ function render() {
                 item.nutrition =
                     nutrition.value;
             
-                save();
+                saveDebounced();
             }
         );
 
